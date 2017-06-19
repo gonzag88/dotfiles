@@ -1,0 +1,148 @@
+" COMMAND MAPPING FORMAT
+" command [attributes] keys_that_will_be_mapped sequence_of_keys_being_mapped
+
+" Stars Pathogen -> extract all of the Vim plugins from their location in
+" ~/.vim/bundles to their respective places in the ~/.vim folder
+execute pathogen#infect()
+
+" gui color if running iTerm
+if $TERM_PROGRAM =~ "iTerm"
+  set termguicolors
+endif
+
+syntax enable
+set background=dark
+colorscheme nova
+set history=1000 " Remember last 1000 commands
+set colorcolumn=80 " Limit line columns to 80
+set cursorline " hightlight current line
+set smartindent
+set shiftwidth=2 " sets autoindent spaces
+set tabstop=2
+set softtabstop=2 " number of visual spaces per TAB
+set expandtab " tabs are spaces
+set showcmd " show last command in bottom bar
+set backspace=2 " make backspace work like most other apps 
+set scrolloff=4 " keep at least 4 lines below cursor
+set mouse=a " allows mouse scrolling
+set wildmenu " visual autocomplete for command menu
+set showmatch " highlight matching [{()}]
+" set number " show line numbers
+set relativenumber
+set ruler
+set splitbelow " open new horizontal split panes at the bottom
+set splitright " open new vertical split panes to the right
+set backupdir=$TMPDIR//
+set directory=$TMPDIR//
+set clipboard=unnamed
+
+runtime macros/matchit.vim " Use % command to jump between the opening and closing keywords of ruby objects (module, class, def, do -> with end)
+
+" Expands current window
+set winwidth=90
+set winheight=5
+set winminheight=5
+set winheight=999
+
+filetype plugin indent on
+syntax on " Highlighting
+
+
+" SET LEADER KEY
+let mapleader=","
+
+" EDIT VIMRC
+nmap <leader>vr :vsp $MYVIMRC<cr>
+
+" RELOAD VIMRC
+nmap <leader>so :source $MYVIMRC<cr>
+
+
+" CHANGE NAVIGATION COMMANDS
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" SHORTCUT TO SAVE
+nmap <leader>, :w<cr>
+
+" SHORTCUT TO QUIT
+nmap <leader>q :q<cr>
+
+" OPEN NEW TAB
+map <leader>T :tabedit<cr>
+
+" TAB SPLIT
+noremap tt :tab split<CR>
+
+" TEXTMATE-LIKE INDENTATION STYLE
+vmap <leader>[ <gv
+vmap <leader>] >gv
+nmap <leader>[ <<
+nmap <leader>] >>
+
+" THE SILVER SEARCHER (ag)
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+let g:ctrlp_working_path_mode = 0 " lets us change the working directory during a Vim session and make CtrlP respect that change
+let g:ctrlp_match_window = 'bottom,order:ttb' " order matching fils top to bottom
+let g:ctrlp_switch_buffer = 0 " always open files in new buffers
+
+if executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor " Use ag over grep
+  " USE AG IN CTRLP FOR LISTING FILES. LIGHTNING FAST AND USES .IGNORE
+  " AND .GITIGNORE
+  let g:ctrlp_user_command = 'ag %s -l -U --skip-vcs-ignores -g ""'
+  let g:ctrlp_use_caching = 0 " ag is fast enough that CtrlP doesn't need to cache
+endif
+
+" LEADER + T (CLEARS CACHE AND) OPENS CTRLP
+nnoremap <leader>t :ClearCtrlPCache<cr>\|:CtrlP<cr>
+
+" NERD Tree
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" STARTS NERDTREE AUTOMATICALLY WHEN VIM STARS UP
+" autocmd vimenter * NERDTree
+
+" SET NERDTREE POSITION
+let g:NERDTreeWinPos = "right"
+
+" CLOSE VIM WHEN NERDTREE IS THE ONLY WINDOW
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" OPEN NERDTREE WHEN DIRECTORY IS OPENED
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" OPEN NERDTREE WITH CTRL + N
+map <C-n> :NERDTreeToggle<CR>
+
+" CTRLP SETTINGS
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+" Automatically rebalance windows on vim resize
+autocmd VimResized * :wincmd =
+
+" zoom a vim pane, <C-w>= to re-balance
+nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nnoremap <leader>= :wincmd =<cr>
+
+" TMUX Settings
+" change the cursor from block mode to vertical bar mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
+
+
+" VIM-TEST plugin
+nmap <silent> <leader>rn :TestNearest<CR>
+nmap <silent> <leader>rf :TestFile<CR>
+nmap <silent> <leader>ra :TestSuite<CR>
