@@ -12,7 +12,7 @@ endif
 
 syntax enable
 set background=dark
-colorscheme nova
+colorscheme hybrid
 set history=1000 " Remember last 1000 commands
 set colorcolumn=80 " Limit line columns to 80
 set cursorline " hightlight current line
@@ -27,22 +27,35 @@ set scrolloff=4 " keep at least 4 lines below cursor
 set mouse=a " allows mouse scrolling
 set wildmenu " visual autocomplete for command menu
 set showmatch " highlight matching [{()}]
-" set number " show line numbers
-set relativenumber
+set relativenumber " muestra line_numbers relativos a la posición actual
+set number " muestra line_numbers absolutos, sin importar posición
 set ruler
 set splitbelow " open new horizontal split panes at the bottom
 set splitright " open new vertical split panes to the right
+set hlsearch   " highlight search words
 set backupdir=$TMPDIR//
 set directory=$TMPDIR//
 set clipboard=unnamed
 
+" Syntastic configuration --> Plugin for checking syntax
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_check_on_open = 0 " Para chequear al abrir
+let g:syntastic_check_on_wq = 0 " Para chequear al cerrar
+let g:syntastic_ruby_checkers = ['rubocop']
+
+" Trigger RuboCop al tirar <Leader>ru
+let g:vimrubocop_keymap = 0
+nmap <Leader>ru :RuboCop<CR>
+
 runtime macros/matchit.vim " Use % command to jump between the opening and closing keywords of ruby objects (module, class, def, do -> with end)
 
 " Expands current window
-set winwidth=90
-set winheight=5
-set winminheight=5
-set winheight=999
+" set winwidth=90
+" set winheight=5
+" set winminheight=5
+" set winheight=999
 
 filetype plugin indent on
 syntax on " Highlighting
@@ -59,12 +72,14 @@ nmap <leader>so :source $MYVIMRC<cr>
 
 
 " CHANGE NAVIGATION COMMANDS
+" Use CapsLock + h,j,k,l to move between panes
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " SHORTCUT TO SAVE
+" , + w to save
 nmap <leader>, :w<cr>
 
 " SHORTCUT TO QUIT
@@ -82,13 +97,19 @@ vmap <leader>] >gv
 nmap <leader>[ <<
 nmap <leader>] >>
 
-" THE SILVER SEARCHER (ag)
+" CTRLP to SEARCH
+" LEADER + T (CLEARS CACHE AND) OPENS CTRLP
+nnoremap <leader>t :ClearCtrlPCache<cr>\|:CtrlP<cr>
+
+let g:ctrlp_custom_ignore = '\v[\/](node_modules)'
 let g:ctrlp_max_files=0
 let g:ctrlp_max_depth=40
 let g:ctrlp_working_path_mode = 0 " lets us change the working directory during a Vim session and make CtrlP respect that change
 let g:ctrlp_match_window = 'bottom,order:ttb' " order matching fils top to bottom
 let g:ctrlp_switch_buffer = 0 " always open files in new buffers
+" let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
+" THE SILVER SEARCHER (ag), to replace grep
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor " Use ag over grep
   " USE AG IN CTRLP FOR LISTING FILES. LIGHTNING FAST AND USES .IGNORE
@@ -97,8 +118,6 @@ if executable('ag')
   let g:ctrlp_use_caching = 0 " ag is fast enough that CtrlP doesn't need to cache
 endif
 
-" LEADER + T (CLEARS CACHE AND) OPENS CTRLP
-nnoremap <leader>t :ClearCtrlPCache<cr>\|:CtrlP<cr>
 
 " NERD Tree
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -115,14 +134,17 @@ let g:NERDTreeWinPos = "right"
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-" OPEN NERDTREE WITH CTRL + N
-map <C-n> :NERDTreeToggle<CR>
+" OPEN NERDTREE WITH , + k
+nmap <leader>k :NERDTreeToggle<CR> 
+
+" IGNORE FILES/DIRS FROM NERDTREE
+let NERDTreeIgnore=['^node_modules.[[dir]]']
 
 " CTRLP SETTINGS
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Automatically rebalance windows on vim resize
-autocmd VimResized * :wincmd =
+" autocmd VimResized * :wincmd =
 
 " zoom a vim pane, <C-w>= to re-balance
 nnoremap <leader>- :wincmd _<cr>:wincmd \|<cr>

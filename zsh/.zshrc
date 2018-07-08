@@ -40,7 +40,8 @@ export EDITOR='vim'
 
 # Set path variable
 #
-export  PATH="/usr/local/sbin:/Users/gonzalo/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+# export  PATH="/usr/local/sbin:/Users/gonzalo/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="$HOME/.rbenv/bin:$PATH"
 PATH="$HOME/.rbenv/shims:$PATH"
 
 # Add /usr/local/sbin
@@ -49,6 +50,8 @@ if [[ -d /usr/local/sbin ]]; then
   export PATH=/usr/local/sbin:$PATH
 fi
 
+# Set a global .ignore file to use it with CtrlP and SilverSearcher under VIM
+alias ag='ag --path-to-ignore ~/.ignore'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -77,19 +80,10 @@ source ~/.bin/tmuxinator.zsh
 #
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias cotizador="cd ~/code/Snappler/cotizador-api"
-alias ireland="cd ~/code/Proyectos/ireland_pay"
-alias nemo="cd ~/code/Snappler/nemo-adapter"
-alias happy="cd ~/code/Proyectos/happy_hour"
-alias suitcase="cd ~/code/Proyectos/suitcase"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-function go_front() {
-  cd ~/code/Snappler/aero_front
-  npm start
-}
-
-
+export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
