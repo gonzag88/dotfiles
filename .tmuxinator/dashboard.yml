@@ -1,0 +1,15 @@
+# ~/.tmuxinator/dashboard.yml
+
+name: dashboard
+root: ~/code/Proyectos/dashboard
+pre: postgres.start
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+  - test: rake

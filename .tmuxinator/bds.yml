@@ -1,0 +1,13 @@
+name: bds
+root: ~/code/Proyectos/bds
+pre: postgres.start
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+

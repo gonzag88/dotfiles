@@ -1,0 +1,10 @@
+name: unagi-time
+root: ~/code/Proyectos/unagi-time
+post: open .
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - server:
+    - rails s

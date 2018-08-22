@@ -1,0 +1,23 @@
+# ~/.tmuxinator/cotizador.yml
+
+name: cotizador
+root: ~/code/Snappler/cotizador-api
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /sbin/route add 172.16.20.0/16 -interface ppp0 
+startup_window: code 
+windows:
+  - code:
+      layout: main-vertical
+      panes:
+        - vim .
+  - redis:
+      layout: main-vertical
+      panes:
+        - redis-cli flushdb
+        - redis-server --port 6300
+  - cotizador-server: rails s
+  - nemo_adapter: cd ~/code/Snappler/nemo-adapter/
+  - netviax_adapter: cd ~/code/Snappler/netviax_adapter/
+  - front: cd ~/code/Snappler/aero-front/ && npm start
+

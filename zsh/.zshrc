@@ -47,10 +47,11 @@ export EDITOR='vim'
 #   export PATH=/usr/local/sbin:$PATH
 # fi
 
-[[ ":$PATH:" != *":$HOME/.rbenv/bin:"* ]] && export PATH="$HOME/.rbenv/bin:${PATH}"
-[[ ":$PATH:" != *":$HOME/.rbenv/shims:"* ]] && export PATH="$HOME/.rbenv/shims:${PATH}"
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# export PATH="$HOME/.rbenv/shims:$PATH"
+# [[ ":$PATH:" != *":$HOME/.rbenv/bin:"* ]] && export PATH="$HOME/.rbenv/bin:${PATH}"
+# [[ ":$PATH:" != *":$HOME/.rbenv/shims:"* ]] && export PATH="$HOME/.rbenv/shims:${PATH}"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$(pyenv root)/shims:$PATH"
 
 
 # export MANPATH="/usr/local/man:$MANPATH"

@@ -1,0 +1,14 @@
+# ~/.tmuxinator/nemo_adapter.yml
+
+name: nemo_adapter
+root: ~/code/Snappler/nemo-adapter
+
+startup_window: code 
+windows:
+  - code:
+      layout: main-vertical
+      panes:
+        - vim .
+  - server: rails s
+  - tests: rake test
+

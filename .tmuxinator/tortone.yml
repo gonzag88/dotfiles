@@ -1,0 +1,13 @@
+name: tortone
+root: ~/code/Proyectos/tortone
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+        - rails c
+

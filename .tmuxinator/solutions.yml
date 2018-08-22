@@ -1,0 +1,15 @@
+name: solutions-re
+root: ~/code/Proyectos/solutions-re
+pre: postgres.start
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+        - rails c
+  - test: rake
+

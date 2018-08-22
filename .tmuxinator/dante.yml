@@ -1,0 +1,15 @@
+name: dante
+root: ~/code/Proyectos/dante
+pre: postgres.start
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+        - rails c
+  - test: rake
+

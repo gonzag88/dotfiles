@@ -1,0 +1,13 @@
+name: eight_teal
+root: ~/code/Proyectos/eight_teal
+pre: postgres.start
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - console&server:
+      layout: main-vertical
+      panes:
+        - rails s
+

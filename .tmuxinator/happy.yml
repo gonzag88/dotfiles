@@ -1,0 +1,12 @@
+# ~/.tmuxinator/happy.yml
+
+name: happy
+root: ~/code/Proyectos/happy_hour
+startup_window: code
+windows:
+  - code:
+      layout: main-vertical
+      panes:
+        - vim .
+        - 
+  - server: ionic serve

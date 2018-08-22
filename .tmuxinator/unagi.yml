@@ -1,0 +1,10 @@
+name: unagi
+root: ~/code/Proyectos/unagi
+post: open .
+windows:
+  - vim:
+      layout: main-vertical
+      panes:
+        - vim .
+  - server:
+    - ruby main.rb

@@ -1,0 +1,50 @@
+# ~/.tmuxinator/cotiv2.yml
+
+name: cotizadorv2
+root: ~/code/Snappler/cotizador_v2
+
+# Runs before everything. Use it to start daemons etc.
+startup_window: cotizador
+windows:
+  - cotizador: 
+      root: ~/code/Snappler/cotizador_v2/cotizador/
+      layout: main-vertical
+      panes:
+        - vim .
+        - rails s
+  - hotel: 
+      root: ~/code/Snappler/cotizador_v2/hotel-manager/
+      panes:
+        - rails s -p 3001
+  - reservation: 
+      root: ~/code/Snappler/cotizador_v2/cart-manager/
+      panes:
+        - rails s -p 3002
+  - flight:
+      root: ~/code/Snappler/cotizador_v2/flight-manager/
+      panges:
+        - rails s -p 3003
+  - nemo: 
+      root: ~/code/Snappler/cotizador_v2/nemo-adapter/
+  - aero:
+      root: ~/code/Snappler/cotizador_v2/aero-adapter/
+  - netviax:
+      root: ~/code/Snappler/cotizador_v2/netviax-adapter/
+  - cupo:
+      root: ~/code/Snappler/cotizador_v2/cupo-adapter/
+  - package:
+      root: ~/code/Snappler/cotizador_v2/package-manager/
+      panes:
+        - rails s -p 3005
+  - land-product:
+      root: ~/code/Snappler/cotizador_v2/land-product-manager/
+      panes:
+        - rails s -p 3004
+  - front: cd ~/code/Snappler/cotizador_v2/aero-front-v2/ && nvm use 6.11.3 && npm start
+  - redis:
+    layout: main-vertical
+    panes:
+      - redis-cli flushdb
+  - rabbit: rabbitmq-server
+
+
