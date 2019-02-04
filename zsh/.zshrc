@@ -7,6 +7,7 @@ export ZSH=/Users/gonzalo/.oh-my-zsh
 
 # Android configuration
 export ANDROID_HOME=/Users/gonzalo/Library/Android/sdk/
+export PATH="$HOME/Library/Android/sdk/build-tools/28.0.3:$PATH"
 # Agrega path a la variable PATH sólo si no existe
 [[ ":$PATH:" != *":/Users/gonzalo/Library/Android/sdk/platform-tools:/Users/gonzalo/Library/Android/sdk/tools:"* ]] && export PATH="${PATH}:/Users/gonzalo/Library/Android/sdk/platform-tools:/Users/gonzalo/Library/Android/sdk/tools"
 # export PATH=${PATH}:/Users/gonzalo/Library/Android/sdk/platform-tools:/Users/gonzalo/Library/Android/sdk/tools
